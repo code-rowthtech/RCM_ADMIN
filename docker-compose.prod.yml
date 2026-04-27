@@ -6,7 +6,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     ports:
-      - "52001:52001"
+      - "5101:5101"
   rcm_blogging_frontend:
     build: ./admin-panel
     container_name: rcm_blogging_frontend
