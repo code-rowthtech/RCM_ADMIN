@@ -123,13 +123,14 @@ const createUser = async (req, res) => {
 
         // Hash password
         const saltRounds = 12;
-        const hashedPassword = await bcrypt.hash(password, saltRounds);
+        // const hashedPassword = await bcrypt.hash(password, saltRounds);
 
         // Create new user
         const user = new User({
             username,
             email,
-            password: hashedPassword,
+            password,
+            // password: hashedPassword,
             role,
             profile,
             isActive
