@@ -1,4 +1,4 @@
-version: '2'
+version: "2"
 services:
   rcm_blogging_backend:
     container_name: web_rcm_blogging_backend
@@ -6,7 +6,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     ports:
-      - "52001:52001"
+      - "5101:5101"
   rcm_blogging_frontend:
     build: ./admin-panel
     container_name: rcm_blogging_frontend
