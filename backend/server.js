@@ -59,7 +59,7 @@ try {
 }
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5101;
 
 // Connect to MongoDB
 if (process.env.NODE_ENV !== 'test') {
@@ -143,9 +143,10 @@ app.use('*', (req, res) => {
 // Start server
 if (process.env.NODE_ENV !== 'test') {
     app.listen(PORT, () => {
-        logger.info(`Server running on port ${PORT}`);
-        logger.info(`Environment: ${process.env.NODE_ENV || 'development'}`);
+        console.log(`Server running on port ${PORT}`);
+        console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
     });
+
 }
 
 module.exports = app;

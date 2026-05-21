@@ -4,4 +4,4 @@ RUN echo "Copying files...."
 COPY . .
 RUN npm install
 CMD ["npm", "run", "start"]
-EXPOSE 52001
+EXPOSE 5101
