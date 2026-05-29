@@ -135,10 +135,10 @@ blogSchema.pre('save', function (next) {
             .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
 
         // Ensure uniqueness by appending timestamp if needed
-        if (this.isNew) {
-            const timestamp = Date.now().toString().slice(-6);
-            this.slug = `${this.slug}-${timestamp}`;
-        }
+        // if (this.isNew) {
+        //     const timestamp = Date.now().toString().slice(-6);
+        //     this.slug = `${this.slug}-${timestamp}`;
+        // }
     }
     next();
 });
@@ -173,7 +173,9 @@ blogSchema.pre('findOneAndUpdate', function (next) {
 
             // Append a short timestamp fragment to help ensure uniqueness
             const timestamp = Date.now().toString().slice(-6);
-            slug = `${slug}-${timestamp}`;
+            slug = `${slug}`;
+            // const timestamp = Date.now().toString().slice(-6);
+            // slug = `${slug}-${timestamp}`;
 
             // Ensure we write the slug into the update document
             if (update.$set) {
