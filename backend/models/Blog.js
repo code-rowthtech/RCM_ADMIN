@@ -154,6 +154,44 @@ blogSchema.pre('save', function (next) {
     next();
 });
 
+// Pre findOneAndUpdate hook to regenerate slug when title is updated
+blogSchema.pre('findOneAndUpdate', function (next) {
+    try {
+        const update = this.getUpdate() || {};
+
+        // Title may be provided at top-level or inside $set
+        const newTitle = update.title || (update.$set && update.$set.title);
+
+        if (newTitle) {
+            // Generate slug from title (same logic as pre-save)
+            let slug = newTitle
+                .toLowerCase()
+                .trim()
+                .replace(/[^\w\s-]/g, '') // Remove special characters
+                .replace(/[\s_-]+/g, '-') // Replace spaces and underscores with hyphens
+                .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
+
+            // Append a short timestamp fragment to help ensure uniqueness
+            const timestamp = Date.now().toString().slice(-6);
+            slug = `${slug}-${timestamp}`;
+
+            // Ensure we write the slug into the update document
+            if (update.$set) {
+                update.$set.slug = slug;
+            } else {
+                update.slug = slug;
+            }
+
+            // Apply modified update back to the query
+            this.setUpdate(update);
+        }
+
+        next();
+    } catch (err) {
+        next(err);
+    }
+});
+
 // Comprehensive indexes for efficient queries
 // Single field indexes
 blogSchema.index({ slug: 1 }); // Unique slug lookup
