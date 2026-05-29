@@ -135,10 +135,11 @@ blogSchema.pre('save', function (next) {
             .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
 
         // Ensure uniqueness by appending timestamp if needed
-        // if (this.isNew) {
-        //     const timestamp = Date.now().toString().slice(-6);
-        //     this.slug = `${this.slug}-${timestamp}`;
-        // }
+        if (this.isNew) {
+            const timestamp = Date.now().toString().slice(-6);
+            this.slug = `${this.slug}`;
+            // this.slug = `${this.slug}-${timestamp}`;
+        }
     }
     next();
 });
